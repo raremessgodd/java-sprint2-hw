@@ -22,8 +22,8 @@ public class YearlyReport {
         }
     }
 
-   public static double findAverageValue (int yearNumber, boolean isExpense){
-        double sum = 0;
+   public static int findAverageValue (int yearNumber, boolean isExpense){
+        int sum = 0;
         int amountOfMonths = 0;
         for (YearInformation report : FileReader.yearReports.get(yearNumber).yearlyReports){
             if (report.isExpense.equals(isExpense)){
