@@ -1,6 +1,3 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Main {
@@ -11,21 +8,39 @@ public class Main {
         while (true){
             printMenu();
             int userCommand = scanner.nextInt();
-            if (userCommand == 1){
-                MonthlyReport.printAllMonthsCsv();
+
+            if (userCommand > 5 && userCommand != 726){
+                System.out.println("Такой команды пока нет.");
+            } else if (userCommand == 1){
+                FileReader.readMonthFiles();
+            } else if (userCommand == 2){
+                FileReader.readYearFiles();
             }
-            else if (userCommand == 2){
-                YearlyReport.printYearCsv();
-            }
+
             else if (userCommand == 3){
-                YearlyReport.checkIncome();
+                if (FileReader.yearReports.isEmpty() || FileReader.allMonthlyReports.isEmpty()){
+                    System.out.println("Сначала нужно считать файлы с отчетами.");
+                } else {
+                    Checker.check();
+                }
             }
+
             else if (userCommand == 4){
-                MonthlyReport.monthReport();
+                if (FileReader.allMonthlyReports.isEmpty()) {
+                    System.out.println("Сначала нужно считать файлы с отчетами за месяц.");
+                } else {
+                    MonthlyReport.monthReport();
+                }
             }
+
             else if (userCommand == 5){
-                YearlyReport.printYearReport();
+                if (FileReader.yearReports.isEmpty()) {
+                    System.out.println("Сначала нужно считать файлы с отчетами за год.");
+                } else {
+                    YearlyReport.yearReport();
+                }
             }
+
             else if (userCommand == 726){
                 System.out.println("Выход...");
                 break;
@@ -41,15 +56,6 @@ public class Main {
                         "4. Вывести информацию о всех месячных отчётах.\n" +
                         "5. Вывести информацию о годовом отчёте.\n" +
                         "Для выхода введите данную комбинацию: 726");
-    }
-
-    public static String readFileByName (String fileName) {
-        try{
-            return Files.readString(Path.of(fileName));
-        }
-        catch (IOException ex){
-            return null;
-        }
     }
 }
 
