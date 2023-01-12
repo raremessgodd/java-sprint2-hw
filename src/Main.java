@@ -9,9 +9,7 @@ public class Main {
             printMenu();
             int userCommand = scanner.nextInt();
 
-            if (userCommand > 5 && userCommand != 726){
-                System.out.println("Такой команды пока нет.");
-            } else if (userCommand == 1){
+            if (userCommand == 1){
                 FileReader.readMonthFiles();
             } else if (userCommand == 2){
                 FileReader.readYearFiles();
@@ -27,7 +25,7 @@ public class Main {
 
             else if (userCommand == 4){
                 if (FileReader.allMonthlyReports.isEmpty()) {
-                    System.out.println("Сначала нужно считать файлы с отчетами за месяц.");
+                    System.out.println("Сначала нужно считать файлы с отчетами.");
                 } else {
                     MonthlyReport.monthReport();
                 }
@@ -35,7 +33,7 @@ public class Main {
 
             else if (userCommand == 5){
                 if (FileReader.yearReports.isEmpty()) {
-                    System.out.println("Сначала нужно считать файлы с отчетами за год.");
+                    System.out.println("Сначала нужно считать файлы с отчетами.");
                 } else {
                     YearlyReport.yearReport();
                 }
@@ -44,6 +42,10 @@ public class Main {
             else if (userCommand == 726){
                 System.out.println("Выход...");
                 break;
+            }
+
+            else {
+                System.out.println("Такой команды пока нет.");
             }
         }
     }

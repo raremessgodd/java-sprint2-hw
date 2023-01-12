@@ -13,7 +13,7 @@ public class YearlyReport {
         for (int i = 1; i < lines.length; i++){
             String line = lines[i];
             String[] columns = line.split(",");
-            int reportsMonth = Integer.parseInt(columns[0]);
+            byte reportsMonth = Byte.parseByte(columns[0]);
             int reportsAmount = Integer.parseInt(columns[1]);
             Boolean reportsIsExpense = Boolean.parseBoolean(columns[2]);
 
@@ -24,12 +24,14 @@ public class YearlyReport {
 
    public static double findAverageValue (int yearNumber, boolean isExpense){
         double sum = 0;
+        int amountOfMonths = 0;
         for (YearInformation report : FileReader.yearReports.get(yearNumber).yearlyReports){
             if (report.isExpense.equals(isExpense)){
                 sum += report.amount;
+                amountOfMonths++;
             }
         }
-        return sum/12;
+        return sum/amountOfMonths;
    }
 
    public static void getDifference (int yearNumber){
@@ -56,8 +58,8 @@ public class YearlyReport {
         for (int yearNumber : FileReader.yearReports.keySet()){
             System.out.println("\n" + yearNumber + " год:");
             getDifference(yearNumber);
-            System.out.println("Средний доход за " + yearNumber + " год " + ": " + findAverageValue(yearNumber, false));
-            System.out.println("Средний расход за " + yearNumber + " год " + ": " + findAverageValue(yearNumber, true));
+            System.out.println("Средняя прибыль за " + yearNumber + " год " + ": " + findAverageValue(yearNumber, false));
+            System.out.println("Средняя трата за " + yearNumber + " год " + ": " + findAverageValue(yearNumber, true));
         }
     }
 }
